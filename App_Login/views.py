@@ -3,7 +3,7 @@ from django.urls import reverse, reverse_lazy
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
 from django.contrib.auth import login,logout,authenticate
-from .forms import CreateUserForm,UserLoginForm
+from .forms import CreateUserForm,UserLoginForm,EditProfile
 from .models import UserProfile
 
 
@@ -17,7 +17,8 @@ def signup(request):
             user = form.save()
             registered =True
             user = UserProfile(user=user)
-            return 
+            user.save()
+            return HttpResponseRedirect(reverse('App_Login:signin'))
     return render(request, 'account/signup.html', context={'form':form, 'registered':registered})
 
 
@@ -31,4 +32,12 @@ def signin(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request,user)
-    return render(request, 'account/login.html', context={'form':form,})
+    return render(request, 'account/signin.html', context={'form':form,})
+
+def edit_Profile(request):
+    current_user=request.user
+    form = EditProfile(instance=current_user)
+    
+    # if request.method == 'POST':
+    #     form = EditProfile(data=request.POST, instance=current_user)
+    return render(request,'account/profile.html', context={'form':form})
