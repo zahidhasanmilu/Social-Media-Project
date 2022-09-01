@@ -23,6 +23,8 @@ class UserLoginForm(AuthenticationForm):
         fields = ('username','password')
         
 class EditProfile(forms.ModelForm):
+    dob = forms.DateField(label='',widget=forms.TextInput(attrs={'type':'date',}))
+
     class Meta:
         model =UserProfile
-        fields ='__all__'
+        exclude = ('user',)

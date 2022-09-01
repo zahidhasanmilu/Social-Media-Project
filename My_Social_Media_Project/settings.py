@@ -43,9 +43,10 @@ INSTALLED_APPS = [
     
     #Custom App
     'App_Login',
+    'App_Post',
     
     'crispy_forms',
-    
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -136,7 +137,7 @@ MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
 
 
-# LOGIN_URL = '/account/signin/'
+LOGIN_URL = '/account/signin/'
 
 
 # Default primary key field type
